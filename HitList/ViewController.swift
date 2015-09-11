@@ -21,7 +21,11 @@ class ViewController: UIViewController, UITableViewDataSource {
         let saveAction = UIAlertAction(title: "Save", style: .Default) { (action: UIAlertAction!) -> Void in
             let textField = alert.textFields![0] as! UITextField
             self.saveName(textField.text)
-            self.tableView.reloadData()
+            
+            //替换reloadData()，使得添加新的一行后，有动画效果
+            //self.tableView.reloadData()
+            let indexPath = NSIndexPath(forRow: (self.people.count-1), inSection: 0)
+            self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .Default) { (action: UIAlertAction!) -> Void in
