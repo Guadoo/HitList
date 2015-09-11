@@ -55,10 +55,10 @@ class ViewController: UIViewController, UITableViewDataSource {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext!
         
-        //2
+        //2 实例Person的fetchRequest
         let fetchRequest = NSFetchRequest(entityName: "Person")
         
-        //3
+        //3 执行fetch获得Person信息，并赋值给people数组
         var error: NSError?
         
         let fetchedResults = managedContext.executeFetchRequest(fetchRequest, error: &error) as! [NSManagedObject]?
