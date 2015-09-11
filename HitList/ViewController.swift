@@ -16,6 +16,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     var people = [NSManagedObject]()
     
     @IBAction func addName(sender: AnyObject) {
+        
         var alert = UIAlertController(title: "New Name", message: "Add a new name", preferredStyle: .Alert)
         
         let saveAction = UIAlertAction(title: "Save", style: .Default) { (action: UIAlertAction!) -> Void in
@@ -47,9 +48,10 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
     
     override func viewWillAppear(animated: Bool) {
+        
         super.viewWillAppear(animated)
         
-        //1
+        //1 实例 delegate 和 managedObjectContext
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext!
         
@@ -74,26 +76,26 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
     
     func saveName(name: String){
-        //1
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
+        //1 实例 delegate 和 managedObjectContext
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext!
         
-        //2
+        //2 实例 entity 为 CoreData 的P erson
         let entity = NSEntityDescription.entityForName("Person", inManagedObjectContext: managedContext)
         
         let person = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
         
-        //3
+        //3 VKC 对managedObject Person 的name属性赋值
         person.setValue(name, forKey: "name")
         
-        //4
+        //4 保存在 managedObjectContext 中的所有 managedOjbect
         var error: NSError?
         if !managedContext.save(&error){
             println("Could not save \(error), \(error?.userInfo)")
         }
         
-        //5
+        //5 将 Person 添加到 People 数组中
         people.append(person)
     }
     
